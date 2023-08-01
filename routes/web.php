@@ -20,8 +20,13 @@ use App\Http\Controllers\VacanteController;
 
 Route::get('/', HomeController::class)->name('home');
 
-Route::get('/dashboard', [VacanteController::class, 'index'])->middleware(['auth', 'verified','rol.reclutador'])->name('vacantes.index');
-Route::get('/vacante/create', [VacanteController::class, 'create'])->middleware(['auth', 'verified'])->name('vacantes.create');
+//'verified',
+Route::get('/dashboard', [VacanteController::class, 'index'])->middleware(['auth', 'rol.reclutador'])->name('vacantes.index');
+
+//  
+Route::get('/vacante/create', [VacanteController::class, 'create'])->middleware(['auth','verified'])->name('vacantes.create');
+
+// 
 Route::get('/vacante/{vacante}/edit', [VacanteController::class, 'edit'])->middleware(['auth', 'verified'])->name('vacantes.edit');
 Route::get('/vacante/{vacante}', [VacanteController::class, 'show'])->name('vacantes.show');
 Route::get('/candidatos/{vacante}', [CandidatoController::class, 'index'])->name('candidatos.index');
@@ -32,7 +37,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+// 
 // Notificaciones 
-Route::get('/notificaciones', NotificacionController::class,)->middleware(['auth', 'verified','rol.reclutador'])->name('notificaciones');
+Route::get('/notificaciones', NotificacionController::class,)->middleware(['auth', 'verified', 'rol.reclutador'])->name('notificaciones');
 
 require __DIR__.'/auth.php';

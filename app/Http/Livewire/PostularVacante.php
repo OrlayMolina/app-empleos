@@ -25,6 +25,12 @@ class PostularVacante extends Component
 
     public function postularme()
     {
+        // Verificar si el usuario ha creado una cuenta
+        if (!auth()->check()) {
+        // Redirigir al usuario a la página de crear cuenta
+        return redirect()->back(); // Asumiendo que tienes una ruta con nombre "crear_cuenta" para la página de crear cuenta
+        }
+
         $datos = $this->validate();
 
         // Almacenar la CV para saber en que lugar del disco quedo almacenada
